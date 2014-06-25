@@ -1,0 +1,6 @@
+---
+allow_duplicates: no
+dependencies:
+    - { role: apache, apache_install: "y" }
+    - { role: mysql, mysql_install: "y" }
+    - { role: php, php_install: "y" }
