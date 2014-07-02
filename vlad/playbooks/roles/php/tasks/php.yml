@@ -1,12 +1,12 @@
 ---
-- name: PHP | install php 5.4 prerequisite python packages
+- name: PHP | install php 5.4+ prerequisite python packages
   apt: pkg={{ item }} state=installed update_cache=yes cache_valid_time=3600
   with_items:
    - python-pycurl
    - python-software-properties
   tags: php
   sudo: true
-  when: php_version == '5.4'
+  when: php_version != '5.3'
 
 - name: PHP | add php 5.4 repository
   apt_repository: repo=ppa:ondrej/php5-oldstable
@@ -17,7 +17,6 @@
 - name: PHP | install php packages
   apt: pkg={{ item }} state=latest update_cache=yes cache_valid_time=3600
   with_items:
-   - php-apc
    - php-pear
    - php5
    - php5-cli
@@ -32,6 +31,14 @@
   sudo: true
   notify:
     - restart apache2
+
+- name: PHP | install php packages
+  apt: pkg={{ item }} state=latest update_cache=yes cache_valid_time=3600
+  with_items:
+   - php-apc
+  tags: php
+  sudo: yes
+  when: php_version != '5.5'
 
 - name: PHP | change php apache2 memory_limit
   lineinfile: dest=/etc/php5/apache2/php.ini regexp="^[#|;]?memory_limit =" insertafter="^[#|;]?memory_limit =" line="memory_limit = {{ php_memory_limit }}"
@@ -175,7 +182,7 @@
 
 - name: PHP | Change APC configuration file apc.ini
   template: src=php/php_apache2_apc.ini.j2 dest=/etc/php5/conf.d/apc.ini
-  when: php_version != '5.4'
+  when: php_version == '5.3'
   tags: php
   sudo: true
   notify:
@@ -183,7 +190,7 @@
 
 - name: PHP | Change APC configuration file apc.ini
   template: src=php/php_apache2_apc.ini.j2 dest=/etc/php5/mods-available/apc.ini
-  when: php_version == '5.4'
+  when: php_version != '5.3'
   tags: php
   sudo: true
   notify:
@@ -199,7 +206,7 @@
   tags: php
 
 - name: PHP | Install PECL uploadprogress
-  command: pecl install uploadprogress creates=/usr/lib/php5/20100525/uploadprogress.so
+  command: pecl install -f uploadprogress creates=/usr/lib/php5/20100525/uploadprogress.so
   tags: php
   sudo: true
   when: php_pecl_uploadprogress is defined and php_pecl_uploadprogress == "y"

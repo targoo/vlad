@@ -6,6 +6,7 @@
     - libsqlite3-dev
     - ruby-dev
   tags: mailcatcher
+  when: php_version != '5.5'
   sudo: true
 
 - name: MailCatcher | Install MailCatcher with RVM (part 1 of 2)
