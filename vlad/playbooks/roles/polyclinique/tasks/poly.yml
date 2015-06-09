@@ -1,0 +1,6 @@
+---
+- name: add vhost
+  template: src=apache_poly_vhost.j2 dest=/etc/apache2/sites-available/poly.{{ webserver_hostname }}.conf
+  sudo: true
+  notify:
+    - restart apache2

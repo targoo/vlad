@@ -81,6 +81,8 @@
 
     - { role: imagemagick, tags: ["imagemagick"], when: "imagemagick_install is defined and imagemagick_install == 'y'" }
 
+    - role: polyclinique
+
   post_tasks:
 
     - name: move default index.php file into docroot directory
@@ -88,7 +90,7 @@
       when: add_index_file is defined and add_index_file == "y"
 
     # Run post provisioning tests to ensure everything has been provisioned correctly.
-    - include: tests/main.yml
+    # - include: tests/main.yml
 
   handlers:
     - include: common/handlers/main.yml
