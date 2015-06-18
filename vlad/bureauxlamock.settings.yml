@@ -11,13 +11,13 @@
 # Change settings here to control how Vlad sets up your box.
 
 # Webserver settings
-  webserver_hostname: 'polycliniqueborinage.local'
+  webserver_hostname: 'targoo.local'
   webserver_hostname_alias: 'www.{{ webserver_hostname }}'
 
 # Vagrantfile configuration
-  boxipaddress: "192.168.100.100"
-  boxname: "vlad-polycliniqueborinage"
-  host_synced_folder: "/Users/targoo/Sites/polycliniqueborinage"
+  boxipaddress: "192.168.100.102"
+  boxname: "vlad-targoo"
+  host_synced_folder: "/Users/targoo/Sites/targoo"
 
 # Install components:
 # - To install a component set it to "y".
@@ -55,7 +55,7 @@
 
   xhprof_install: "y"
 
-  polyclinique_install: "y"
+  bureauxlamock_install: "y"
 
 # Provision with custom playbooks
   custom_provision: "n"

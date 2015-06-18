@@ -4,3 +4,10 @@
   sudo: true
   notify:
     - restart apache2
+
+- name: enable the apache_poly_vhost site
+  command: a2ensite poly.{{ webserver_hostname }}.conf creates=/etc/apache2/sites-enabled/poly.{{ webserver_hostname }}.conf
+  sudo: true
+  when: ansible_os_family == "Debian"
+  notify:
+    - restart apache2

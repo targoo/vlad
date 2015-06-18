@@ -1,0 +1,3 @@
+---
+- include: drupal7.yml
+- include: drupal8.yml
