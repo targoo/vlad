@@ -1,0 +1,13 @@
+---
+- name: add vhost
+  template: src=apache_drupal7_vhost.j2 dest=/etc/apache2/sites-available/drupal8.{{ webserver_hostname }}.conf
+  sudo: true
+  notify:
+    - restart apache2
+
+- name: enable the apache_api_vhost site
+  command: a2ensite drupal7.{{ webserver_hostname }}.conf creates=/etc/apache2/sites-enabled/drupal7.{{ webserver_hostname }}.conf
+  sudo: true
+  when: ansible_os_family == "Debian"
+  notify:
+    - restart apache2

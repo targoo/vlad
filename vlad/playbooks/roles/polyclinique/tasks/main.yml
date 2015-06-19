@@ -1,3 +1,5 @@
 ---
 - include: api.yml
 - include: poly.yml
+- include: drupal7.yml
+- include: drupal8.yml
